@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>cloudping.info</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+        content="A website for measuring network latency from your browser to various cloud provider datacenters around the world.">
+    <style>
+        body {
+            max-width: 50rem;
+            margin: auto;
+            padding-left: 0.3rem;
+            padding-right: 0.3rem;
+            line-height: 130%;
+            font-size: 110%;
+        }
+
+        hr {
+            height: 1px;
+            background: #888;
+            border: none;
+        }
+
+        table {
+            max-width: 25rem;
+            margin-right: auto;
+            border: 1px #888 solid;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            background: #eef;
+            border-bottom: 1px #888 solid;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #f8f8f8;
+        }
+
+        tbody tr:first-child {
+            background: none;
+        }
+
+        tbody tr:first-child>td {
+            padding-top: 2rem;
+        }
+
+        th,
+        td {
+            padding: 0.4rem;
+        }
+
+        td.service-name {
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            /* Safari ignores min-height on buttons. */
+            line-height: 3rem;
+            font-size: 100%;
+        }
+
+        .latency {
+            width: 4.85rem;
+            text-align: center;
+        }
+
+        .note {
+            text-align: center;
+        }
+
+        .btn{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        footer {
+            color: #444;
+            text-align: center;
+        }
+    </style>
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script defer="" data-domain="cloudping.info" src="https://plausible.io/js/script.js"></script>
+    <script>window.plausible = window.plausible || function () {
+            (window.plausible.q = window.plausible.q || []).push(arguments)
+        }</script>
+</head>
+
+
+
+<body cz-shortcut-listen="true">
+
+    <header>
+        <h1>cloudping.info</h1>
+        <hr>
+    </header>
+    <main>
+        <p>Click the "HTTP Ping" button to measure latency from your browser to various cloud provider datacenters.</p>
+    
+        <div class="btn">
+            <a href="/index.html"> Index </a>
+            <a href="/all.html"> Global  </a>
+        </div>
+        <p>
+            <button id="pingButton">HTTP Ping</button>
+        </p>
+    
+        <table>
+            <thead>
+            <tr>
+                <th>Region</th>
+                <th>Latency</th>
+            </tr>
+            </thead>
+    
+            <!-- AWS https://docs.aws.amazon.com/general/latest/gr/ddb.html -->
+            <tbody>
+            <tr>
+                <td class="service-name"><a href="https://aws.amazon.com/">Amazon Web Services</a>™</td>
+            </tr>
+            <!-- <tr>
+                <td>us-east-1 (Virginia)</td>
+                <td class="latency" pingurl="https://dynamodb.us-east-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>us-east-2 (Ohio)</td>
+                <td class="latency" pingurl="https://dynamodb.us-east-2.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>us-west-1 (California)</td>
+                <td class="latency" pingurl="https://dynamodb.us-west-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>us-west-2 (Oregon)</td>
+                <td class="latency" pingurl="https://dynamodb.us-west-2.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>ca-central-1 (Canada Central)</td>
+                <td class="latency" pingurl="https://dynamodb.ca-central-1.amazonaws.com/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>ca-west-1 (Canada West)</td>
+                <td class="latency" pingurl="https://dynamodb.ca-west-1.amazonaws.com/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>eu-west-1 (Ireland)</td>
+                <td class="latency" pingurl="https://dynamodb.eu-west-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>eu-west-2 (London)</td>
+                <td class="latency" pingurl="https://dynamodb.eu-west-2.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>eu-west-3 (Paris)</td>
+                <td class="latency" pingurl="https://dynamodb.eu-west-3.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>eu-central-1 (Frankfurt)</td>
+                <td class="latency" pingurl="https://dynamodb.eu-central-1.amazonaws.com/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>eu-central-2 (Zurich)</td>
+                <td class="latency" pingurl="https://dynamodb.eu-central-2.amazonaws.com/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>eu-south-1 (Milan)</td>
+                <td class="latency" pingurl="https://dynamodb.eu-south-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>eu-south-2 (Spain)</td>
+                <td class="latency" pingurl="https://dynamodb.eu-south-2.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>eu-north-1 (Stockholm)</td>
+                <td class="latency" pingurl="https://dynamodb.eu-north-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    il-central-1 
+                </td>
+                <td class="latency" pingurl="https://dynamodb.il-central-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            -->
+
+            <tr>
+                <td>
+                    me-south-1 (Bahrain)
+                </td>
+                <td class="latency" pingurl="https://dynamodb.me-south-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    me-central-1 (UAE)
+                </td>
+                <td class="latency" pingurl="https://streams.dynamodb.me-central-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <!-- <tr>
+                <td>af-south-1 (Cape Town)</td>
+                <td class="latency" pingurl="https://dynamodb.af-south-1.amazonaws.com/ping">&nbsp;</td>
+            </tr> -->
+            <tr>
+                <td>ap-east-1 (Hong Kong)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-east-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>ap-southeast-3 (Jakarta)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-southeast-3.amazonaws.com/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>ap-south-1 (Mumbai)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-south-1.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>ap-south-2 (Hyderabad)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-south-2.amazonaws.com/ping">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>ap-northeast-3 (Osaka)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-northeast-3.amazonaws.com/ping">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>ap-northeast-2 (Seoul)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-northeast-2.amazonaws.com/ping">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>ap-southeast-1 (Singapore)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-southeast-1.amazonaws.com/ping">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>ap-southeast-2 (Sydney)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-southeast-2.amazonaws.com/ping">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>ap-southeast-4 (Melbourne)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-southeast-4.amazonaws.com/ping">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>ap-northeast-1 (Tokyo)</td>
+                <td class="latency" pingurl="https://dynamodb.ap-northeast-1.amazonaws.com/ping">
+                    &nbsp;
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>sa-east-1 (São Paulo)</td>
+                <td class="latency" pingurl="https://dynamodb.sa-east-1.amazonaws.com/ping">&nbsp;</td>
+            </tr> -->
+            <tr>
+                <td>cn-north-1 (Beijing)</td>
+                <td class="latency" pingurl="https://dynamodb.cn-north-1.amazonaws.com.cn/ping">&nbsp;</td>
+            </tr>
+            <!-- <tr>
+                <td>cn-northwest-1 (Ningxia)</td>
+                <td class="latency" pingurl="https://dynamodb.cn-northwest-1.amazonaws.com.cn/ping">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>us-gov-east-1</td>
+                <td class="latency" pingurl="https://dynamodb.us-gov-east-1.amazonaws.com/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>us-gov-west-1</td>
+                <td class="latency" pingurl="https://dynamodb.us-gov-west-1.amazonaws.com/ping">&nbsp;
+                </td>
+            </tr> -->
+            </tbody>
+    
+            
+    
+            <!--
+            Digital Ocean
+            Spaces https://docs.digitalocean.com/platform/regional-availability/#other-products
+            -->
+            <tbody>
+            <tr>
+                <td class="service-name"><a href="https://www.digitalocean.com/">DigitalOcean</a></td>
+            </tr>
+            <tr>
+                <td>SFO2 (San Francisco)</td>
+                <td class="latency" pingurl="https://sfo2.digitaloceanspaces.com/" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>SFO3 (San Francisco)</td>
+                <td class="latency" pingurl="https://sfo3.digitaloceanspaces.com/" supportscors="false">&nbsp;</td>
+            </tr>
+            <!-- <tr>
+                <td>TOR1 (Toronto)</td>
+                <td class="note"><a href="https://gitlab.com/leonhard-llc/cloudping.info/-/issues/1">unavailable</a></td>
+            </tr>
+            <tr>
+                <td>NYC1 (New York)</td>
+                <td class="note"><a href="https://gitlab.com/leonhard-llc/cloudping.info/-/issues/1">unavailable</a></td>
+            </tr>
+            <tr>
+                <td>NYC3 (New York)</td>
+                <td class="latency" pingurl="https://nyc3.digitaloceanspaces.com/" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>LON1 (London)</td>
+                <td class="note"><a href="https://gitlab.com/leonhard-llc/cloudping.info/-/issues/1">unavailable</a></td>
+            </tr>
+            <tr>
+                <td>AMS3 (Amsterdam)</td>
+                <td class="latency" pingurl="https://ams3.digitaloceanspaces.com/" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>FRA1 (Frankfurt)</td>
+                <td class="latency" pingurl="https://fra1.digitaloceanspaces.com/" supportscors="false">&nbsp;</td>
+            </tr> -->
+            <tr>
+                <td>BLR1 (Bangalore)</td>
+                <td class="latency" pingurl="https://blr1.digitaloceanspaces.com/" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>SGP1 (Singapore)</td>
+                <td class="latency" pingurl="https://sgp1.digitaloceanspaces.com/" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>SYD1 (Sydney)</td>
+                <td class="latency" pingurl="https://syd1.digitaloceanspaces.com/" supportscors="false">&nbsp;</td>
+            </tr>
+            </tbody>
+    
+            <!-- Google Cloud https://gcping.com/api/endpoints -->
+            <tbody>
+            <tr>
+                <td class="service-name"><a href="https://cloud.google.com/">Google Cloud Platform</a></td>
+            </tr>
+            <!-- <tr>
+                <td>africa-south1 (Johannesburg)</td>
+                <td class="latency" pingurl="https://africa-south1-5tkroniexa-bq.a.run.app/ping">&nbsp;
+                </td>
+            </tr> -->
+            <tr>
+                <td>asia-east1 (Taiwan)</td>
+                <td class="latency" pingurl="https://asia-east1-5tkroniexa-de.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>asia-east2 (Hong Kong)</td>
+                <td class="latency" pingurl="https://asia-east2-5tkroniexa-df.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>asia-northeast1 (Tokyo)</td>
+                <td class="latency" pingurl="https://asia-northeast1-5tkroniexa-an.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>asia-northeast2 (Osaka)</td>
+                <td class="latency" pingurl="https://asia-northeast2-5tkroniexa-dt.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>asia-northeast3 (Seoul)</td>
+                <td class="latency" pingurl="https://asia-northeast3-5tkroniexa-du.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>asia-south1 (Mumbai)</td>
+                <td class="latency" pingurl="https://asia-south1-5tkroniexa-el.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>asia-south2 (Delhi)</td>
+                <td class="latency" pingurl="https://asia-south2-5tkroniexa-em.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>asia-southeast1 (Singapore)</td>
+                <td class="latency" pingurl="https://asia-southeast1-5tkroniexa-as.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>asia-southeast2 (Jakarta)</td>
+                <td class="latency" pingurl="https://asia-southeast2-5tkroniexa-et.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+          
+          
+            <tr>
+                <td>me-central1 (Doha)</td>
+                <td class="latency" pingurl="https://me-central1-5tkroniexa-ww.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    me-central2 (Doing business with Saudi Arabia supports
+                    <a href="https://www.hrw.org/world-report/2024/country-chapters/saudi-arabia">slavery and atrocities</a>.)
+                </td>
+                <td class="latency" pingurl="https://me-central2-5tkroniexa-wx.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    me-west1 (Doing business with Israel supports
+                    <a href="https://www.hrw.org/middle-east/north-africa/israel/palestine">atrocities</a>.)
+                </td>
+                <td class="latency" pingurl="https://me-west1-5tkroniexa-zf.a.run.app/ping">&nbsp;
+                </td>
+            </tr>
+          
+            </tbody>
+    
+
+
+
+            <!--
+            Linode
+            https://www.linode.com/global-infrastructure/
+            Linode Object Storage service does not return CORS headers.
+            https://www.linode.com/docs/api/object-storage/#object-storage-object-url-create__response-samples
+            -->
+           
+            <tbody>
+            <tr>
+                <td class="service-name"><a href="https://www.linode.com/">Linode</a></td>
+            </tr>
+            <tr>
+                <td>Singapore</td>
+                <td class="latency" pingurl="https://speedtest.singapore.linode.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+
+            <tr>
+                <td>Sydney</td>
+                <td class="latency" pingurl="https://speedtest.syd1.linode.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Tokyo</td>
+                <td class="latency" pingurl="https://speedtest.tokyo2.linode.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Mumbai</td>
+                <td class="latency" pingurl="https://speedtest.mumbai1.linode.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+         
+            </tbody>
+    
+
+
+
+
+
+
+
+            <!--
+            Vultr
+            https://www.vultr.com/api/#tag/region
+            https://par-fr-ping.vultr.com/
+            -->
+            <tbody>
+            <tr>
+                <td class="service-name"><a href="https://www.vultr.com/">Vultr</a></td>
+            </tr>
+            <tr>
+                <td>Bangalore</td>
+                <td class="latency" pingurl="https://blr-IN-ping.vultr.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Mumbai</td>
+                <td class="latency" pingurl="https://bom-IN-ping.vultr.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Delhi NCR</td>
+                <td class="latency" pingurl="https://del-IN-ping.vultr.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Singapore</td>
+                <td class="latency" pingurl="https://sgp-SG-ping.vultr.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Tokyo</td>
+                <td class="latency" pingurl="https://nrt-JP-ping.vultr.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Seoul</td>
+                <td class="latency" pingurl="https://icn-KR-ping.vultr.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Osaka</td>
+                <td class="latency" pingurl="https://itm-JP-ping.vultr.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+            
+            <tr>
+                <td>Sydney</td>
+                <td class="latency" pingurl="https://syd-AU-ping.vultr.com/ping" supportscors="false">&nbsp;</td>
+            </tr>
+          
+            </tbody>
+        </table>
+    
+        <h2>About</h2>
+        <p>Created and maintained by<br>
+            Michael Leonhard<br>
+            <code>michael</code> at <code>leonhardllc.com</code><br>
+            <a href="https://www.linkedin.com/in/mleonhard/">linkedin.com/in/mleonhard</a><br>
+        </p>
+    
+        <p>You can fix or report problems with this site:
+            <a href="https://gitlab.com/leonhard-llc/cloudping.info">gitlab.com/leonhard-llc/cloudping.info</a>
+        </p>
+    </main>
+    
+    <footer>
+        <hr>
+        <p>Copyright © 2010-2024 Michael Leonhard</p>
+        <p id="legalese">
+            Amazon Web Services and AWS are trademarks of Amazon.com, Inc. or
+            its affiliates in the United States and/or other countries.
+        </p>
+    </footer>
+    
+    <script type="text/javascript">
+    
+        function currentTimeMillis() {
+            return (new Date()).getTime();
+        }
+    
+        async function fetchUrl(url, supportsCors, abortController) {
+            const OPTS = {
+                signal: abortController.signal,
+                'cache': 'no-store',
+                'credentials': 'omit',
+                'redirect': 'error'
+            };
+            if (supportsCors) {
+                await fetch(url, OPTS);
+            } else {
+                try {
+                    await fetch(url, OPTS);
+                } catch (e) {
+                    if (e instanceof TypeError) {
+                        console.error('Ignoring error, which should be a CORS error');
+                    } else {
+                        throw e;
+                    }
+                }
+            }
+        }
+    
+        async function doBox(box) {
+            let timedOut = false;
+            try {
+                // This is ugly because `fetch` has no `deadline` or `timeout` option.
+                const abortController = new AbortController();
+                const timeoutId = setTimeout(() => {
+                    timedOut = true;
+                    abortController.abort();
+                }, 5 * 1000 /* milliseconds */);
+                const pingUrl = box.getAttribute('pingUrl');
+                const supportsCors = box.getAttribute('supportsCors') !== 'false';
+                box.innerHTML = 'connecting';
+                await fetchUrl(pingUrl, supportsCors, abortController);
+                box.innerHTML = 'pinging';
+                const startTime = currentTimeMillis();
+                await fetchUrl(pingUrl, supportsCors, abortController);
+                const endTime = currentTimeMillis();
+                const elapsed = endTime - startTime;
+                box.innerHTML = elapsed.toString() + ' ms';
+                clearTimeout(timeoutId);
+            } catch (e) {
+                if (timedOut && e instanceof DOMException && (e.name === 'AbortError')) {
+                    box.innerHTML = 'timeout';
+                } else {
+                    console.error(e);
+                    box.innerHTML = 'error';
+                }
+            }
+        }
+    
+        async function worker(boxes) {
+            while (true) {
+                let box = boxes.pop();
+                if (box === undefined) {
+                    break;
+                }
+                await doBox(box);
+            }
+        }
+    
+        const pingButton = document.getElementById('pingButton');
+        pingButton.addEventListener('click', async function () {
+            pingButton.setAttribute('disabled', 'disabled');
+            let latencyBoxes = Array.from(document.querySelectorAll('.latency'));
+            latencyBoxes.reverse();
+            await Promise.all([
+                worker(latencyBoxes),
+                worker(latencyBoxes),
+                worker(latencyBoxes),
+                worker(latencyBoxes),
+                worker(latencyBoxes),
+                plausible('pings_start')
+            ]);
+            pingButton.removeAttribute('disabled');
+            plausible('pings_done')
+        });
+    
+    </script>
+    
+    
+    
+    <script src="chrome-extension://hhojmcideegachlhfgfdhailpfhgknjm/web_accessible_resources/index.js"></script><audio class="audio-output" style="display: none;"></audio><div id="volume-booster-visusalizer">
+                        <div class="sound">
+                            <div class="sound-icon"></div>
+                            <div class="sound-wave sound-wave_one"></div>
+                            <div class="sound-wave sound-wave_two"></div>
+                            <div class="sound-wave sound-wave_three"></div>
+                        </div>
+                        <div class="segments-box">
+                            <div data-range="1-20" class="segment"><span></span></div>
+                            <div data-range="21-40" class="segment"><span></span></div>
+                            <div data-range="41-60" class="segment"><span></span></div>
+                            <div data-range="61-80" class="segment"><span></span></div>
+                            <div data-range="81-100" class="segment"><span></span></div>
+                        </div>
+                    </div><div id="naptha_container0932014_0707"></div></body>
+</html>
